@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+$clear: #777;
+
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  @include flex();
+  min-height: 100vh;
+  background: $clear;
+}
+
+.nav {
+  width: 400px;
+  height: 70px;
+  background: white;
+  @include flex();
+  border-radius: 10px;
+
+  ul {
+    display: flex;
+    width: 350px;
+
+    li {
+      position: relative;
+      list-style: none;
+      width: 70px;
+      height: 70px;
+      z-index: 1;
+
+      &.active a .icon {
+        transform: translateY(-35px);
+        color: white;
+      }
+
+      &.active a .text {
+        opacity: 1;
+        transform: translateY(10px);
+      }
+
+      &:nth-child(1).active ~ .indicator {
+        transform: translateX(calc(70px * 0));
+      }
+      &:nth-child(2).active ~ .indicator {
+        transform: translateX(calc(70px * 1));
+      }
+      &:nth-child(3).active ~ .indicator {
+        transform: translateX(calc(70px * 2));
+      }
+      &:nth-child(4).active ~ .indicator {
+        transform: translateX(calc(70px * 3));
+      }
+      &:nth-child(5).active ~ .indicator {
+        transform: translateX(calc(70px * 4));
+      }
+
+      a {
+        position: relative;
+        @include flex();
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        font-weight: 500;
+
+        .icon {
+          position: relative;
+          display: block;
+          line-height: 75px;
+          font-size: 1.5em;
+          text-align: center;
+          transition: 0.5s;
+          color: $clear;
+        }
+
+        .text {
+          position: absolute;
+          color: $clear;
+          font-weight: 400;
+          font-size: 0.75em;
+          letter-spacing: 0.05em;
+          transition: 0.5s;
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+    }
+  }
+}
+
+.indicator {
+  position: absolute;
+  top: 40.4%;
+  width: 70px;
+  height: 70px;
+  background: red;
+  border-radius: 50%;
+  border: 6px solid $clear;
+  transition: 0.5s;
+
+  @mixin indicator {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    box-shadow: 0 -10px 0 0 $clear;
+  }
+
+  &::before {
+    @include indicator();
+    left: -22.5px;
+    border-radius: 0 20px 0 0;
+  }
+
+  &::after {
+    @include indicator();
+    right: -22.5px;
+    border-radius: 20px 0 0 0;
+  }
+}
